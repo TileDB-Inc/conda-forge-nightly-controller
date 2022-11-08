@@ -1,0 +1,71 @@
+name: tiledb-py
+on:
+  schedule:
+    # - cron: "0 3 * * *" # Every night at 3 AM UTC (10 PM EST; 11 PM EDT)
+    - cron: "0 3 */5 * *" # reduce to every 5 days for now
+  workflow_dispatch:
+jobs:
+  tiledb-py:
+    runs-on: ubuntu-latest
+    name: tiledb-py
+    env:
+      TZ: "America/New_York"
+    steps:
+      - name: Clone nightlies CI repo
+        uses: actions/checkout@v3
+        with:
+          #repository: TileDB-Inc/tiledb-nightlies
+          repository: jdblischak/tiledb-nightlies-prototype
+          path: ci
+      - name: Clone feedstock
+        uses: actions/checkout@v3
+        with:
+          #repository: TileDB-Inc/tiledb-py-feedstock
+          repository: jdblischak/tiledb-py-feedstock
+          ref: main
+          path: tiledb-py-feedstock
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY_TILEDB_PY }}
+      - name: Clone source
+        uses: actions/checkout@v3
+        with:
+          repository: TileDB-Inc/TileDB-Py
+          ref: dev
+          path: TileDB-Py
+          fetch-depth: 0 # fetch everything
+      - name: Obtain date
+        run: bash ci/scripts/obtain-date.sh
+      - name: Install conda-smithy and deps with micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: false
+          environment-name: env
+          extra-specs: |
+            conda-smithy
+            cmake
+            cython
+            numpy
+            pybind11
+            setuptools
+            setuptools-scm
+            wheel
+          channels: conda-forge
+          cache-env: true
+      - name: Obtain version from setup.py
+        shell: bash -l {0}
+        run: bash ci/scripts/tiledb-py/obtain-version.sh
+      - name: Obtain commit
+        run: bash ci/scripts/obtain-commit.sh TileDB-Py
+      - name: Pull from upstream feedstock
+        run: bash ci/scripts/pull-upstream-feedstock.sh tiledb-py-feedstock
+      - name: Update recipe
+        run: bash ci/scripts/tiledb-py/update-recipe.sh
+      - name: Update channels
+        run: bash ci/scripts/update-channels.sh tiledb-py-feedstock
+      - name: Add and commit
+        run: bash ci/scripts/add-and-commit.sh tiledb-py-feedstock
+      - name: Rerender feedstock
+        shell: bash -l {0}
+        run: bash ci/scripts/rerender-feedstock.sh tiledb-py-feedstock
+      - name: Push update to GitHub
+        if: ${{ github.ref == 'refs/heads/main' && github.repository == 'jdblischak/tiledb-nightlies-prototype' && github.event_name != 'pull_request' }}
+        run: bash ci/scripts/push-update.sh tiledb-py-feedstock

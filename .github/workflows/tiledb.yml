@@ -1,0 +1,61 @@
+name: tiledb
+on:
+  schedule:
+    # - cron: "0 2 * * *" # Every night at 2 AM UTC (9 PM EST; 10 PM EDT)
+    - cron: "0 2 */5 * *" # reduce to every 5 days for now
+  workflow_dispatch:
+jobs:
+  tiledb:
+    runs-on: ubuntu-latest
+    name: tiledb
+    env:
+      TZ: "America/New_York"
+    steps:
+      - name: Clone nightlies CI repo
+        uses: actions/checkout@v3
+        with:
+          #repository: TileDB-Inc/tiledb-nightlies
+          repository: jdblischak/tiledb-nightlies-prototype
+          path: ci
+      - name: Clone feedstock
+        uses: actions/checkout@v3
+        with:
+          #repository: TileDB-Inc/tiledb-feedstock
+          repository: jdblischak/tiledb-feedstock
+          ref: main
+          path: tiledb-feedstock
+          ssh-key: ${{ secrets.SSH_PRIVATE_KEY_TILEDB }}
+      - name: Clone source
+        uses: actions/checkout@v3
+        with:
+          repository: TileDB-Inc/TileDB
+          ref: dev
+          path: TileDB
+      - name: Obtain date
+        run: bash ci/scripts/obtain-date.sh
+      - name: Obtain version
+        run: bash ci/scripts/tiledb/obtain-version.sh
+      - name: Obtain commit
+        run: bash ci/scripts/obtain-commit.sh TileDB
+      - name: Pull from upstream feedstock
+        run: bash ci/scripts/pull-upstream-feedstock.sh tiledb-feedstock
+      - name: Update recipe
+        run: bash ci/scripts/tiledb/update-recipe.sh
+      - name: Update channels
+        run: bash ci/scripts/update-channels.sh tiledb-feedstock
+      - name: Add and commit
+        run: bash ci/scripts/add-and-commit.sh tiledb-feedstock
+      - name: Install conda-smithy with micromamba
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: false
+          environment-name: env
+          extra-specs: conda-smithy
+          channels: conda-forge
+          cache-env: true
+      - name: Rerender feedstock
+        shell: bash -l {0}
+        run: bash ci/scripts/rerender-feedstock.sh tiledb-feedstock
+      - name: Push update to GitHub
+        if: ${{ github.ref == 'refs/heads/main' && github.repository == 'jdblischak/tiledb-nightlies-prototype' && github.event_name != 'pull_request' }}
+        run: bash ci/scripts/push-update.sh tiledb-feedstock
