@@ -14,14 +14,12 @@ jobs:
       - name: Clone nightlies CI repo
         uses: actions/checkout@v3
         with:
-          #repository: TileDB-Inc/tiledb-nightlies
-          repository: jdblischak/tiledb-nightlies-prototype
+          repository: TileDB-Inc/conda-forge-nightly-controller
           path: ci
       - name: Clone feedstock
         uses: actions/checkout@v3
         with:
-          #repository: TileDB-Inc/tiledb-feedstock
-          repository: jdblischak/tiledb-feedstock
+          repository: TileDB-Inc/tiledb-feedstock
           ref: main
           path: tiledb-feedstock
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY_TILEDB }}
@@ -57,5 +55,5 @@ jobs:
         shell: bash -l {0}
         run: bash ci/scripts/rerender-feedstock.sh tiledb-feedstock
       - name: Push update to GitHub
-        if: ${{ github.ref == 'refs/heads/main' && github.repository == 'jdblischak/tiledb-nightlies-prototype' && github.event_name != 'pull_request' }}
+        if: ${{ github.ref == 'refs/heads/main' && github.repository == 'TileDB-Inc/conda-forge-nightly-controller' && github.event_name != 'pull_request' }}
         run: bash ci/scripts/push-update.sh tiledb-feedstock

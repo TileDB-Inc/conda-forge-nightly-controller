@@ -1,2 +1,9 @@
 .idea/
 
+# Ignore files created by run-local scripts
+date.txt
+version.txt
+commit.txt
+tiledb-feedstock/
+TileDB/
+TileDB-Py/

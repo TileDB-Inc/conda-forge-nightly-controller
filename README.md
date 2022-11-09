@@ -1,9 +1,9 @@
 # Prototype for centralized nightly CI builds for TileDB
 
-Name | status | azure | version | last updated | downloads
----- | ------ | ----- |-------- | ------------ | ---------
-TileDB | [![tiledb](https://github.com/jdblischak/tiledb-nightlies-prototype/workflows/tiledb/badge.svg)](https://github.com/jdblischak/tiledb-nightlies-prototype/actions/workflows/tiledb.yml) | [![tiledb-azure](https://dev.azure.com/jdblischak/feedstock-builds/_apis/build/status/tiledb-feedstock?branchName=nightly-build)](https://dev.azure.com/jdblischak/feedstock-builds/_build/latest?definitionId=1&branchName=nightly-build) | [![version](https://anaconda.org/jdblischak/tiledb/badges/version.svg)](https://anaconda.org/jdblischak/tiledb) | ![last updated](https://anaconda.org/jdblischak/tiledb/badges/latest_release_date.svg) | ![downloads](https://anaconda.org/jdblischak/tiledb/badges/downloads.svg)
-TileDB-Py | [![tiledb-py](https://github.com/jdblischak/tiledb-nightlies-prototype/workflows/tiledb-py/badge.svg)](https://github.com/jdblischak/tiledb-nightlies-prototype/actions/workflows/tiledb-py.yml) | [![tiledb-py-azure](https://dev.azure.com/jdblischak/feedstock-builds/_apis/build/status/tiledb-py-feedstock?branchName=nightly-build)](https://dev.azure.com/jdblischak/feedstock-builds/_build/latest?definitionId=2&branchName=nightly-build) | [![version](https://anaconda.org/jdblischak/tiledb-py/badges/version.svg)](https://anaconda.org/jdblischak/tiledb-py) | ![last updated](https://anaconda.org/jdblischak/tiledb-py/badges/latest_release_date.svg) | ![downloads](https://anaconda.org/jdblischak/tiledb-py/badges/downloads.svg)
+Name | status                                                                                                                                                                                                   | azure                                                                                                                                                                                                                | version                                                                                                                           | last updated                                                                                    | downloads
+---- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------| ---------
+TileDB | [![tiledb](https://github.com/TileDB-Inc/conda-forge-nightly-controller/workflows/tiledb/badge.svg)](https://github.com/TileDB-Inc/conda-forge-nightly-controller/actions/workflows/tiledb.yml)          | [![tiledb-azure](https://dev.azure.com/TileDB-Inc/CI/_apis/build/status/tiledbfeedstock_CI?branchName=nightly-build)](https://dev.azure.com/TileDB-Inc/CI/_build/latest?definitionId=4&branchName=nightly-build)     | [![version](https://anaconda.org/tiledb-shaunreed/tiledb/badges/version.svg)](https://anaconda.org/tiledb-shaunreed/tiledb)       | ![last updated](https://anaconda.org/tiledb-shaunreed/tiledb/badges/latest_release_date.svg)    | ![downloads](https://anaconda.org/tiledb-shaunreed/tiledb/badges/downloads.svg)
+TileDB-Py | [![tiledb-py](https://github.com/TileDB-Inc/conda-forge-nightly-controller/workflows/tiledb-py/badge.svg)](https://github.com/TileDB-Inc/conda-forge-nightly-controller/actions/workflows/tiledb-py.yml) | [![tiledb-py-azure](https://dev.azure.com/TileDB-Inc/CI/_apis/build/status/TileDB-Py%20Feedstock%20Testing?branchName=nightly-build)](https://dev.azure.com/TileDB-Inc/CI/_build/latest?definitionId=5&branchName=nightly-build) | [![version](https://anaconda.org/tiledb-shaunreed/tiledb-py/badges/version.svg)](https://anaconda.org/tiledb-shaunreed/tiledb-py) | ![last updated](https://anaconda.org/tiledb-shaunreed/tiledb-py/badges/latest_release_date.svg) | ![downloads](https://anaconda.org/tiledb-shaunreed/tiledb-py/badges/downloads.svg)
 
 ## How it works
 
@@ -19,10 +19,10 @@ TileDB-Py | [![tiledb-py](https://github.com/jdblischak/tiledb-nightlies-prototy
 * The job also updates the upload channels so that the conda binaries are
   uploaded to the tiledb channel on anaconda.org with the label "nightlies"
   (this prototype uploads to my personal channel
-  [jdblischak][anaconda.org-tiledb]). It rerenders the feedstock with
+  [tiledb-shaunreed][anaconda.org-tiledb]). It rerenders the feedstock with
   conda-smithy
 
-    [anaconda.org-tiledb]: https://anaconda.org/jdblischak/tiledb/files?version=&channel=nightlies
+    [anaconda.org-tiledb]: https://anaconda.org/tiledb-shaunreed/tiledb/files?version=&channel=nightlies
 
 * The job force pushes to the feedstock branch "nightly-build" to trigger Azure
   builds and uploads (this is made possible by manually configured SSH keys; see
@@ -47,7 +47,7 @@ To locally install a nightly version:
 
 ```sh
 mamba create --yes -n test-nightlies \
-  -c conda-forge -c "jdblischak/label/nightlies" \
+  -c conda-forge -c "tiledb-shaunreed/label/nightlies" \
   --override-channels tiledb-py="*2022*"
 ```
 
@@ -67,7 +67,7 @@ For each feedstock, generate a new SSH key pair:
 2. Add SSH private key (`/tmp/ssh-temp/key`) to tiledb-nightlies as a repository secret named
    `SSH_PRIVATE_KEY_<software>`:
     * Settings -> Secrets -> Actions -> New repository secret
-    * Note: the name of the secret cannot included dashes (GitHub restriction)
+    * Note: the name of the secret cannot include dashes (GitHub restriction)
 
 3. Add SSH public key (`/tmp/ssh-temp/key.pub`) to TileDB-Inc fork of feedstock
    repository as a deploy key with write access:

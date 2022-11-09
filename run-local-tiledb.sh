@@ -18,7 +18,7 @@ echo "Push to GitHub: $PUSH"
 export TZ="America/New_York"
 
 rm -rf tiledb-feedstock
-git clone --quiet --depth 1 git@github.com:jdblischak/tiledb-feedstock.git tiledb-feedstock
+git clone --quiet --depth 1 git@github.com:TileDB-Inc/tiledb-feedstock.git tiledb-feedstock
 
 rm -rf TileDB
 git clone --quiet --depth 1 git@github.com:TileDB-Inc/TileDB.git TileDB
