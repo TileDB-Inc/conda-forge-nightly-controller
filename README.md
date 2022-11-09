@@ -1,9 +1,9 @@
-# Prototype for centralized nightly CI builds for TileDB
+# Centralized nightly CI builds for TileDB conda feedstocks
 
-Name | status                                                                                                                                                                                                   | azure                                                                                                                                                                                                                | version                                                                                                                           | last updated                                                                                    | downloads
----- |----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------| ---------
-TileDB | [![tiledb](https://github.com/TileDB-Inc/conda-forge-nightly-controller/workflows/tiledb/badge.svg)](https://github.com/TileDB-Inc/conda-forge-nightly-controller/actions/workflows/tiledb.yml)          | [![tiledb-azure](https://dev.azure.com/TileDB-Inc/CI/_apis/build/status/tiledbfeedstock_CI?branchName=nightly-build)](https://dev.azure.com/TileDB-Inc/CI/_build/latest?definitionId=4&branchName=nightly-build)     | [![version](https://anaconda.org/tiledb-shaunreed/tiledb/badges/version.svg)](https://anaconda.org/tiledb-shaunreed/tiledb)       | ![last updated](https://anaconda.org/tiledb-shaunreed/tiledb/badges/latest_release_date.svg)    | ![downloads](https://anaconda.org/tiledb-shaunreed/tiledb/badges/downloads.svg)
-TileDB-Py | [![tiledb-py](https://github.com/TileDB-Inc/conda-forge-nightly-controller/workflows/tiledb-py/badge.svg)](https://github.com/TileDB-Inc/conda-forge-nightly-controller/actions/workflows/tiledb-py.yml) | [![tiledb-py-azure](https://dev.azure.com/TileDB-Inc/CI/_apis/build/status/TileDB-Py%20Feedstock%20Testing?branchName=nightly-build)](https://dev.azure.com/TileDB-Inc/CI/_build/latest?definitionId=5&branchName=nightly-build) | [![version](https://anaconda.org/tiledb-shaunreed/tiledb-py/badges/version.svg)](https://anaconda.org/tiledb-shaunreed/tiledb-py) | ![last updated](https://anaconda.org/tiledb-shaunreed/tiledb-py/badges/latest_release_date.svg) | ![downloads](https://anaconda.org/tiledb-shaunreed/tiledb-py/badges/downloads.svg)
+| Name      | status                                                                                                                                                                                                   | azure                                                                                                                                                                                                                            | version                                                                                                       | last updated                                                                          | downloads                                                                |
+|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| TileDB    | [![tiledb](https://github.com/TileDB-Inc/conda-forge-nightly-controller/workflows/tiledb/badge.svg)](https://github.com/TileDB-Inc/conda-forge-nightly-controller/actions/workflows/tiledb.yml)          | [![tiledb-azure](https://dev.azure.com/TileDB-Inc/CI/_apis/build/status/tiledbfeedstock_CI?branchName=nightly-build)](https://dev.azure.com/TileDB-Inc/CI/_build/latest?definitionId=4&branchName=nightly-build)                 | [![version](https://anaconda.org/tiledb/tiledb/badges/version.svg)](https://anaconda.org/tiledb/tiledb)       | ![last updated](https://anaconda.org/tiledb/tiledb/badges/latest_release_date.svg)    | ![downloads](https://anaconda.org/tiledb/tiledb/badges/downloads.svg)    |
+| TileDB-Py | [![tiledb-py](https://github.com/TileDB-Inc/conda-forge-nightly-controller/workflows/tiledb-py/badge.svg)](https://github.com/TileDB-Inc/conda-forge-nightly-controller/actions/workflows/tiledb-py.yml) | [![tiledb-py-azure](https://dev.azure.com/TileDB-Inc/CI/_apis/build/status/TileDB-Py%20Feedstock%20Testing?branchName=nightly-build)](https://dev.azure.com/TileDB-Inc/CI/_build/latest?definitionId=5&branchName=nightly-build) | [![version](https://anaconda.org/tiledb/tiledb-py/badges/version.svg)](https://anaconda.org/tiledb/tiledb-py) | ![last updated](https://anaconda.org/tiledb/tiledb-py/badges/latest_release_date.svg) | ![downloads](https://anaconda.org/tiledb/tiledb-py/badges/downloads.svg) |
 
 ## How it works
 
@@ -17,12 +17,9 @@ TileDB-Py | [![tiledb-py](https://github.com/TileDB-Inc/conda-forge-nightly-cont
   (X.X.X.YYYY.MM.DD), where X.X.X are derived from the source repo
 
 * The job also updates the upload channels so that the conda binaries are
-  uploaded to the tiledb channel on anaconda.org with the label "nightlies"
-  (this prototype uploads to my personal channel
-  [tiledb-shaunreed][anaconda.org-tiledb]). It rerenders the feedstock with
-  conda-smithy
+  uploaded to the [tiledb][anaconda.org-tiledb] channel on anaconda.org with the label "nightlies".
 
-    [anaconda.org-tiledb]: https://anaconda.org/tiledb-shaunreed/tiledb/files?version=&channel=nightlies
+    [anaconda.org-tiledb]: https://anaconda.org/tiledb/tiledb/files?version=&channel=nightlies
 
 * The job force pushes to the feedstock branch "nightly-build" to trigger Azure
   builds and uploads (this is made possible by manually configured SSH keys; see
@@ -47,7 +44,7 @@ To locally install a nightly version:
 
 ```sh
 mamba create --yes -n test-nightlies \
-  -c conda-forge -c "tiledb-shaunreed/label/nightlies" \
+  -c conda-forge -c "tiledb/label/nightlies" \
   --override-channels tiledb-py="*2022*"
 ```
 
@@ -151,7 +148,7 @@ The instructions below are based off of the [conda-smithy][] instructions for
       --without-anaconda-token
     ```
 
-    If you were successful, you'll now see the new feedstock listed at https://dev.azure.com/<account>/feedstock-builds/_build?view=folders
+    If you were successful, you'll now see the new feedstock listed at `https://dev.azure.com/<account>/feedstock-builds/_build?view=folders`
 
 * Create a token for anaconda.org
   * Login to your account at anaconda.org
