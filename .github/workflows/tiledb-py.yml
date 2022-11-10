@@ -3,8 +3,7 @@ on:
   # This job depends on a previous passing run of TileDB conda nightly.
   # Schedule for conda nightly against TileDB-Py should begin after TileDB core.
   schedule:
-    # - cron: "0 3 * * *" # Every night at 3 AM UTC (10 PM EST; 11 PM EDT)
-    - cron: "0 3 */5 * *" # reduce to every 5 days for now
+     - cron: "0 3 * * *" # Every night at 3 AM UTC (10 PM EST; 11 PM EDT)
   workflow_dispatch:
 jobs:
   tiledb-py:
