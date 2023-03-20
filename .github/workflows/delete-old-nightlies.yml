@@ -1,0 +1,50 @@
+name: Delete old nightlies
+on:
+  schedule:
+     - cron: "0 0 * * 1" # Every Monday
+  workflow_dispatch:
+    inputs:
+      ACCOUNT:
+        description: >-
+          (string) The main account/channel on anaconda.org. The actual channel
+          to be searched will be "ACCOUNT/label/nightlies"
+        required: true
+        default: "tiledb"
+      DAYS:
+        description: >-
+          (integer) Number of days to keep nightlies (ie nightlies uploaded more
+          than $DAYS days ago will be removed)
+        required: true
+        default: 7
+      DRY_RUN:
+        description: >-
+          (integer) Exit without actually removing packages. Default is 0. Set
+          to 1 for dry run
+        default: 0
+defaults:
+  run:
+    shell: bash -l {0}
+env:
+  ACCOUNT: ${{ github.event.inputs.ACCOUNT || 'tiledb' }}
+  DAYS: ${{ github.event.inputs.DAYS || 7 }}
+  DRY_RUN: ${{ github.event.inputs.DRY_RUN || 0 }}
+  ANACONDA_TOKEN: ${{ secrets.ANACONDA_TOKEN }}
+jobs:
+  remove:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup conda env
+        uses: mamba-org/provision-with-micromamba@main
+        with:
+          environment-file: scripts/delete-old-nightlies.yml
+          cache-env: true
+      - name: Confirm anaconda.org API token is valid
+        run: anaconda --token "$ANACONDA_TOKEN" whoami
+      - name: Remove old nightlies
+        run: |
+          for subdir in linux-64 linux-aarch64 linux-ppc64le osx-64 osx-arm64 win-64
+          do
+            SUBDIR="$subdir" bash scripts/delete-old-nightlies.sh
+            sleep 1
+          done

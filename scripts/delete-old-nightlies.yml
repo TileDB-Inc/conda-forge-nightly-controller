@@ -1,0 +1,8 @@
+name: delete-old-nightlies
+channels:
+  - conda-forge
+  - nodefaults
+dependencies:
+  - anaconda-client
+  - bash
+  - jq
