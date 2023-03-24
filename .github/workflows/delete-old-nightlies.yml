@@ -1,7 +1,7 @@
 name: Delete old nightlies
 on:
   schedule:
-     - cron: "0 0 * * 1" # Every Monday
+     - cron: "36 0 * * 1" # Every Monday
   workflow_dispatch:
     inputs:
       TILEDB_CI_ACCOUNT:
