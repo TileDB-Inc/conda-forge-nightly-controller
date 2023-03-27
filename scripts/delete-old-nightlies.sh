@@ -4,7 +4,7 @@ set -euo pipefail
 #
 # Usage:
 #   export ANACONDA_TOKEN="<api-token>"
-#   TILEDB_CI_ACCOUNT=tiledb TILEDB_CI_DAYS=7 scripts/delete-old-nightlies.sh
+#   TILEDB_CI_ACCOUNT=tiledb TILEDB_CI_DAYS=7 bash scripts/delete-old-nightlies.sh
 #
 # Variables that must be defined outside of this script:
 #
