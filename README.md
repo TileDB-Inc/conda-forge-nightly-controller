@@ -14,7 +14,7 @@
   source repo
 
 * The job updates the recipe (`meta.yaml`) to use the version string
-  (X.X.X.YYYY.MM.DD), where X.X.X are derived from the source repo
+  (X.X.X.YYYY_MM_DD), where X.X.X are derived from the source repo
 
 * The job also updates the upload channels so that the conda binaries are
   uploaded to the [tiledb][anaconda.org-tiledb] channel on anaconda.org with the label "nightlies".
