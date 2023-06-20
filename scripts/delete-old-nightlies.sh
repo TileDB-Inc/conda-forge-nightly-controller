@@ -27,7 +27,9 @@ TILEDB_CI_DRY_RUN="${TILEDB_CI_DRY_RUN:-0}"
 channel="$TILEDB_CI_ACCOUNT/label/nightlies"
 echo "Removing $TILEDB_CI_SUBDIR nightlies more than $TILEDB_CI_DAYS days old from the channel $channel"
 
-conda search -v --json --override-channels -c "$channel" --subdir "$TILEDB_CI_SUBDIR" > nightlies.json
+conda search -v --json --override-channels -c "$channel" \
+  --subdir "$TILEDB_CI_SUBDIR" > nightlies.json || \
+  { echo "Total nightlies: 0" && exit 0; }
 
 total=$(jq 'flatten | length' nightlies.json)
 echo "Total nightlies: $total"
