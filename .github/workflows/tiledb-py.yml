@@ -34,11 +34,11 @@ jobs:
       - name: Obtain date
         run: bash ci/scripts/obtain-date.sh
       - name: Install conda-smithy and deps with micromamba
-        uses: mamba-org/provision-with-micromamba@main
+        uses: mamba-org/setup-micromamba@v1
         with:
           environment-file: false
           environment-name: env
-          extra-specs: |
+          create-args: >-
             conda-smithy
             cmake
             cython
@@ -47,8 +47,7 @@ jobs:
             setuptools
             setuptools-scm
             wheel
-          channels: conda-forge
-          cache-env: true
+          cache-environment: true
       - name: Obtain version from setup.py
         shell: bash -l {0}
         run: bash ci/scripts/tiledb-py/obtain-version.sh
