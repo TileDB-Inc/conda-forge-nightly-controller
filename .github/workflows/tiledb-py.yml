@@ -36,7 +36,6 @@ jobs:
       - name: Install conda-smithy and deps with micromamba
         uses: mamba-org/setup-micromamba@v1
         with:
-          environment-file: false
           environment-name: env
           create-args: >-
             conda-smithy
