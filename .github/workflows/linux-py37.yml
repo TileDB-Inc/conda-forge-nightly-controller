@@ -2,6 +2,7 @@
 # Required to support TileDB Cloud UDFs until service agreement expires
 name: linux-py37
 on:
+  pull_request:
   schedule:
      # "At minute 23 past hour 0, 6, 12, and 18."
      # https://crontab.guru/#23_0,6,12,18_*_*_*
@@ -31,5 +32,5 @@ jobs:
         run: |
           git commit -a -m "Update recipe" || echo "nothing to commit"
       - name: Push
-        if: github.repository_owner == 'TileDB-Inc'
+        if: github.repository_owner == 'TileDB-Inc' && github.event_name != 'pull_request'
         run: git push origin build-linux-64-py37

@@ -1,5 +1,6 @@
 name: tiledb-py
 on:
+  pull_request:
   # This job depends on a previous passing run of TileDB conda nightly.
   # Schedule for conda nightly against TileDB-Py should begin after TileDB core.
   schedule:

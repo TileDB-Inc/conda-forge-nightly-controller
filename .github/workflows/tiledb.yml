@@ -1,5 +1,6 @@
 name: tiledb
 on:
+  pull_request:
   schedule:
      - cron: "0 1 * * *" # Every night at 1 AM UTC (8 PM EST; 9 PM EDT)
   workflow_dispatch:
