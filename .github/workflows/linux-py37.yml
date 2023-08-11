@@ -31,5 +31,5 @@ jobs:
         run: |
           git commit -a -m "Update recipe" || echo "nothing to commit"
       - name: Push
-        if: github.repository_owner == 'TileDB-Inc'
+        if: github.ref == 'refs/heads/main' && github.repository_owner == 'TileDB-Inc' && github.event_name != 'pull_request'
         run: git push origin build-linux-64-py37

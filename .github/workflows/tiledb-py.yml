@@ -64,7 +64,7 @@ jobs:
         shell: bash -l {0}
         run: bash ci/scripts/rerender-feedstock.sh tiledb-py-feedstock
       - name: Push update to GitHub
-        if: ${{ github.ref == 'refs/heads/main' && github.repository == 'TileDB-Inc/conda-forge-nightly-controller' && github.event_name != 'pull_request' }}
+        if: github.ref == 'refs/heads/main' && github.repository_owner == 'TileDB-Inc' && github.event_name != 'pull_request'
         run: bash ci/scripts/push-update.sh tiledb-py-feedstock
   issue:
     permissions:
