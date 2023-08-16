@@ -43,6 +43,8 @@ jobs:
             cython
             numpy
             pybind11
+            ruamel.yaml
+            ruamel.yaml.jinja2
             setuptools
             setuptools-scm
             wheel
@@ -55,7 +57,10 @@ jobs:
       - name: Pull from upstream feedstock
         run: bash ci/scripts/pull-upstream-feedstock.sh tiledb-py-feedstock
       - name: Update recipe
-        run: bash ci/scripts/tiledb-py/update-recipe.sh
+        shell: bash -l {0}
+        run: python ci/scripts/tiledb-py/update-recipe.py
+      - name: Print recipe diff
+        run: git -C tiledb-py-feedstock/ --no-pager diff recipe/meta.yaml
       - name: Update channels
         run: bash ci/scripts/update-channels.sh tiledb-py-feedstock
       - name: Add and commit
