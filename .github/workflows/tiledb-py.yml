@@ -49,6 +49,9 @@ jobs:
             setuptools-scm
             wheel
           cache-environment: true
+      - name: Update conda-smithy
+        shell: bash -l {0}
+        run: micromamba update --yes conda-smithy
       - name: Obtain version from setup.py
         shell: bash -l {0}
         run: bash ci/scripts/tiledb-py/obtain-version.sh

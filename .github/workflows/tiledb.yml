@@ -48,6 +48,9 @@ jobs:
           environment-name: env
           create-args: conda-smithy
           cache-environment: true
+      - name: Update conda-smithy
+        shell: bash -l {0}
+        run: micromamba update --yes conda-smithy
       - name: Rerender feedstock
         shell: bash -l {0}
         run: bash ci/scripts/rerender-feedstock.sh tiledb-feedstock
