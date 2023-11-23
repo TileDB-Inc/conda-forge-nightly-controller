@@ -87,6 +87,6 @@ jobs:
         with:
           name: nightly build
           label: nightly-failure
-          assignee: shaunrd0,ihnorton
+          assignee: shaunrd0,KiterLuc,ihnorton
         env:
           TZ: "America/New_York"
