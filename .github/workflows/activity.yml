@@ -26,3 +26,19 @@ jobs:
       - name: Push
         if: github.repository_owner == 'TileDB-Inc'
         run: git push origin main
+  issue:
+    permissions:
+      issues: write
+    runs-on: ubuntu-latest
+    needs: commit
+    if: ( failure() || cancelled() ) && github.repository_owner == 'TileDB-Inc' && github.event_name == 'schedule'
+    steps:
+      - uses: actions/checkout@v3
+      - name: Open Issue
+        uses: TileDB-Inc/github-actions/open-issue@main
+        with:
+          name: activity
+          label: bug
+          assignee: shaunrd0,ihnorton,jdblischak
+        env:
+          TZ: "America/New_York"
