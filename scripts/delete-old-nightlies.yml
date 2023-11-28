@@ -6,3 +6,7 @@ dependencies:
   - anaconda-client
   - bash
   - jq
+  # Python 3.12 removed the module `imp`, which is used
+  # by the Anaconda package `clyent`
+  # https://docs.python.org/3.12/whatsnew/3.12.html#imp
+  - python<3.12
