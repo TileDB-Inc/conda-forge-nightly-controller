@@ -32,7 +32,7 @@ curl -sL $ENDPOINT | tail -n 3
 
 # Open Issue or comment on existing one
 
-theMessage="Nightly feedstock build failure for $AZURE_BUILD_NAME at https://dev.azure.com/$AZURE_ORG/$AZURE_PROJECT/_build/latest?definitionId=$AZURE_BUILD_ID&branchName=$AZURE_BUILD_BRANCH"
+theMessage="Nightly feedstock build failure for $AZURE_BUILD_NAME at https://dev.azure.com/$AZURE_ORG/$AZURE_PROJECT/_build?definitionId=$AZURE_BUILD_ID&_a=summary"
 echo $theMessage
 
 if [[ -z "$GH_TOKEN" ]]
