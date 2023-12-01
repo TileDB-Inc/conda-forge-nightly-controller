@@ -68,8 +68,8 @@ jobs:
       - name: Open Issue
         uses: TileDB-Inc/github-actions/open-issue@main
         with:
-          name: nightly build
-          label: nightly-failure
-          assignee: shaunrd0,KiterLuc,ihnorton,jdblischak
+          name: nightly TileDB setup
+          label: bug
+          assignee: shaunrd0,ihnorton,jdblischak
         env:
           TZ: "America/New_York"
