@@ -7,7 +7,7 @@ repo="$1"
 echo "conda_forge_output_validation: False" >> "$repo/conda-forge.yml"
 
 # Add tiledb as source channel
-echo -e "channel_sources:\n  - conda-forge,tiledb/label/nightlies" >> "$repo/recipe/conda_build_config.yaml"
+echo -e "channel_sources:\n  - tiledb/label/nightlies,conda-forge" >> "$repo/recipe/conda_build_config.yaml"
 
 # Change upload channel
 echo -e "channel_targets:\n  - tiledb nightlies" >> "$repo/recipe/conda_build_config.yaml"
