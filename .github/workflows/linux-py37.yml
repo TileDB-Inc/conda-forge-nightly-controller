@@ -45,7 +45,7 @@ jobs:
         uses: TileDB-Inc/github-actions/open-issue@main
         with:
           name: py37 linux
-          label: bug
+          label: bug,scheduled,linux-py37
           assignee: shaunrd0,ihnorton,jdblischak
         env:
           TZ: "America/New_York"

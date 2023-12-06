@@ -86,7 +86,7 @@ jobs:
         uses: TileDB-Inc/github-actions/open-issue@main
         with:
           name: nightly TileDB-Py setup
-          label: bug
+          label: bug,scheduled,tiledb-py
           assignee: shaunrd0,ihnorton,jdblischak
         env:
           TZ: "America/New_York"

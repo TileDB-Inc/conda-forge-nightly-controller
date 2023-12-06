@@ -38,7 +38,7 @@ jobs:
         uses: TileDB-Inc/github-actions/open-issue@main
         with:
           name: activity
-          label: bug
+          label: bug,scheduled,activity
           assignee: shaunrd0,ihnorton,jdblischak
         env:
           TZ: "America/New_York"
