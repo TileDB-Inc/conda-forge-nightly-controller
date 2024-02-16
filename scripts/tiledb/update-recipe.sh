@@ -23,10 +23,5 @@ sed -i \
   s/"  number: [0-9]\+"/"  number: 0"/ \
   tiledb-feedstock/recipe/meta.yaml
 
-# (temporary) Add libboost-devel for 2.21
-sed -i \
-  s/host:/'host:\n    - libboost-devel'/ \
-  tiledb-feedstock/recipe/meta.yaml
-
 # Print differences
 git -C tiledb-feedstock/ --no-pager diff recipe/meta.yaml
