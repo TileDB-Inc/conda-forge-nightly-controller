@@ -46,7 +46,7 @@ jobs:
         uses: mamba-org/setup-micromamba@v1
         with:
           environment-name: env
-          create-args: conda-smithy
+          create-args: conda-smithy jsonschema
           cache-environment: true
       - name: Update conda-smithy
         shell: bash -l {0}
