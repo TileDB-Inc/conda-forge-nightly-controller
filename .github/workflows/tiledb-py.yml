@@ -41,6 +41,7 @@ jobs:
             conda-smithy
             cmake
             cython
+            jsonschema
             numpy
             pybind11
             ruamel.yaml
