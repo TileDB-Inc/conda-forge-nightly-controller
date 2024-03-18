@@ -29,6 +29,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check Azure Status API
+        if: github.repository_owner == 'TileDB-Inc' # do not run on forks
         env:
           GH_TOKEN: ${{ github.token }}
         run: bash scripts/check-azure-status.sh 5 TileDB-Py%20Feedstock%20Testing
@@ -41,7 +42,7 @@ jobs:
     needs: [tiledb-feedstock, tiledb-py-feedstock]
     if: ( failure() || cancelled() ) && github.repository_owner == 'TileDB-Inc' && github.event_name == 'schedule'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Open Issue
         uses: TileDB-Inc/github-actions/open-issue@main
         with:
