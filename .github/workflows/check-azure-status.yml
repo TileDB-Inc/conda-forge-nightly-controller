@@ -16,6 +16,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Check Azure Status API
+        if: github.repository_owner == 'TileDB-Inc' # do not run on forks
         env:
           GH_TOKEN: ${{ github.token }}
         run:  bash scripts/check-azure-status.sh 4 tiledbfeedstock_CI
