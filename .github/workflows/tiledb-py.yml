@@ -88,6 +88,6 @@ jobs:
         with:
           name: nightly TileDB-Py setup
           label: bug,scheduled,tiledb-py
-          assignee: shaunrd0,ihnorton,jdblischak
+          assignee: kounelisagis,shaunrd0,ihnorton,jdblischak
         env:
           TZ: "America/New_York"
