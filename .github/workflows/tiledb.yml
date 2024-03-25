@@ -70,6 +70,6 @@ jobs:
         with:
           name: nightly TileDB setup
           label: bug,scheduled,tiledb
-          assignee: shaunrd0,ihnorton,jdblischak
+          assignee: kounelisagis,shaunrd0,ihnorton,jdblischak
         env:
           TZ: "America/New_York"
