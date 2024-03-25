@@ -27,7 +27,7 @@ sed -i \
 mkdir -p tiledb-feedstock/recipe/tiledb-patches/system-ports/azure-identity-cpp
 echo "set(VCPKG_POLICY_EMPTY_PACKAGE enabled)" \
   > tiledb-feedstock/recipe/tiledb-patches/system-ports/azure-identity-cpp/portfile.cmake
-echo "{ "name": "azure-identity-cpp", "version-string": "system" }" \
+echo '{ "name": "azure-identity-cpp", "version-string": "system" }' \
   > tiledb-feedstock/recipe/tiledb-patches/system-ports/azure-identity-cpp/vcpkg.json
 
 sed -i \
