@@ -34,6 +34,14 @@ sed -i \
   s/host:/'host:\n    - azure-identity-cpp'/ \
   tiledb-feedstock/recipe/meta.yaml
 
+# Use VS2022
+cat >> tiledb-feedstock/recipe/conda_build_config.yaml << EOF
+c_compiler:    # [win]
+  - vs2022       # [win]
+cxx_compiler:  # [win]
+  - vs2022       # [win]
+EOF
+
 
 # Print differences
 git -C tiledb-feedstock/ --no-pager diff recipe/meta.yaml
