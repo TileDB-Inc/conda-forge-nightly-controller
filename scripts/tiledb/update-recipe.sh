@@ -40,6 +40,8 @@ c_compiler:    # [win]
   - vs2022       # [win]
 cxx_compiler:  # [win]
   - vs2022       # [win]
+c_stdlib_version:    # [win]
+  - 2022             # [win]
 EOF
 
 
