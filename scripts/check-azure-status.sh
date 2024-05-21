@@ -56,7 +56,7 @@ then
     --assignee "shaunrd0,KiterLuc,ihnorton,jdblischak,kounelisagis" \
     --body "$theMessage" \
     --label "nightly-failure" \
-    --title "Nighly feedstock build failed"
+    --title "Nightly feedstock build failed"
 else
   echo "Commenting on existing issue"
   gh issue comment "$existing" \
