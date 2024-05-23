@@ -13,19 +13,19 @@ jobs:
       TZ: "America/New_York"
     steps:
       - name: Clone nightlies CI repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TileDB-Inc/conda-forge-nightly-controller
           path: ci
       - name: Clone feedstock
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TileDB-Inc/tiledb-py-feedstock
           ref: main
           path: tiledb-py-feedstock
           ssh-key: ${{ secrets.SSH_PRIVATE_KEY_TILEDB_PY }}
       - name: Clone source
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           repository: TileDB-Inc/TileDB-Py
           ref: dev
@@ -82,7 +82,7 @@ jobs:
     needs: tiledb-py
     if: ( failure() || cancelled() ) && github.repository_owner == 'TileDB-Inc' && github.event_name == 'schedule'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Open Issue
         uses: TileDB-Inc/github-actions/open-issue@main
         with:
