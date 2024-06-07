@@ -23,9 +23,5 @@ sed -i \
   s/"  number: [0-9]\+"/"  number: 0"/ \
   tiledb-feedstock/recipe/meta.yaml
 
-# (temporary) Remove pr-4995.patch
-git -C tiledb-feedstock/ rm recipe/pr-4995.patch
-sed -i /4995/d tiledb-feedstock/recipe/meta.yaml
-
 # Print differences
 git -C tiledb-feedstock/ --no-pager diff recipe/meta.yaml
