@@ -24,7 +24,7 @@ sed -i \
   tiledb-feedstock/recipe/meta.yaml
 
 # (temporary) Remove lz4-fix.patch
-git rm tiledb-feedstock/recipe/lz4-fix.patch
+git -C tiledb-feedstock/ rm recipe/lz4-fix.patch
 sed -i /lz4-fix.patch/d tiledb-feedstock/recipe/meta.yaml
 
 # Print differences
