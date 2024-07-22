@@ -53,7 +53,7 @@ jobs:
       - name: Update conda-smithy
         shell: bash -l {0}
         run: micromamba update --yes conda-smithy
-      - name: Obtain version from setup.py
+      - name: Obtain version
         shell: bash -l {0}
         run: bash ci/scripts/tiledb-py/obtain-version.sh
       - name: Obtain commit
@@ -64,7 +64,7 @@ jobs:
         shell: bash -l {0}
         run: python ci/scripts/tiledb-py/update-recipe.py
       - name: Print recipe diff
-        run: git -C tiledb-py-feedstock/ --no-pager diff recipe/meta.yaml
+        run: git -C tiledb-py-feedstock/ --no-pager diff recipe/
       - name: Update channels
         run: bash ci/scripts/update-channels.sh tiledb-py-feedstock
       - name: Add and commit
