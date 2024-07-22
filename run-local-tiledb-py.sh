@@ -37,6 +37,8 @@ else
     cython \
     numpy \
     pybind11 \
+    ruamel.yaml \
+    ruamel.yaml.jinja2 \
     setuptools \
     setuptools-scm \
     wheel
@@ -47,7 +49,7 @@ mamba update --yes --quiet conda-smithy
 bash scripts/tiledb-py/obtain-version.sh
 bash scripts/obtain-commit.sh TileDB-Py
 bash scripts/pull-upstream-feedstock.sh tiledb-py-feedstock
-bash scripts/tiledb-py/update-recipe.sh
+python scripts/tiledb-py/update-recipe.py
 bash scripts/update-channels.sh tiledb-py-feedstock
 bash scripts/add-and-commit.sh tiledb-py-feedstock
 

@@ -54,5 +54,17 @@ for i in range(len(updated["requirements"]["host"])):
     if updated["requirements"]["host"][i].startswith("tiledb"):
         updated["requirements"]["host"][i] = "tiledb *.%s" % (date)
 
+# (Temporary) Add requirements for scikit-build-core
+updated["requirements"]["build"].append("make")
+updated["requirements"]["build"].append("cmake")
+updated["requirements"]["host"].append("scikit-build-core")
+
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
+
+# (Temporary) Update build scripts for scikit-build-core
+with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
+    f.write("TILEDB_PATH=${PREFIX} {{ PYTHON }} -m pip install --no-build-isolation --no-deps --ignore-installed -v .")
+
+with open("tiledb-py-feedstock/recipe/bld.bat", "w") as f:
+    f.write("set \"TILEDB_PATH=${PREFIX}\" && {{ PYTHON }} -m pip install --no-build-isolation --no-deps --ignore-installed -v .")
