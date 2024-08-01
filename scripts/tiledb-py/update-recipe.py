@@ -64,7 +64,17 @@ with open(recipe, "w") as f:
 
 # (Temporary) Update build scripts for scikit-build-core
 with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
-    f.write("TILEDB_PATH=${PREFIX} ${PYTHON} -m pip install --no-build-isolation --no-deps --ignore-installed -v .")
+    f.write(
+        "TILEDB_PATH=${PREFIX} "
+        "${PYTHON} -m pip install "
+        "-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS=OFF "
+        "--no-build-isolation --no-deps --ignore-installed -v ."
+    )
 
 with open("tiledb-py-feedstock/recipe/bld.bat", "w") as f:
-    f.write("set \"TILEDB_PATH=%LIBRARY_PREFIX%\" && %PYTHON% -m pip install --no-build-isolation --no-deps --ignore-installed -v .")
+    f.write(
+        "set \"TILEDB_PATH=%LIBRARY_PREFIX%\" "
+        "&& %PYTHON% -m pip install "
+        "-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS=OFF "
+        "--no-build-isolation --no-deps --ignore-installed -v ."
+    )
