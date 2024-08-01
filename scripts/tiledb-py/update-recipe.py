@@ -2,21 +2,19 @@
 #
 # Parses recipe with ruamel.yaml
 #
-# Reads values for version, date, day, and commit from plain-text files
+# Reads values for version, date, and commit from plain-text files
 
 recipe = "tiledb-py-feedstock/recipe/meta.yaml"
 
 from ruamel.yaml import YAML
 from yaml.constructor import ConstructorError
 from yaml.scanner import ScannerError
+from datetime import datetime
 
 # Read values from plain-text files -------------------------------------------
 
 with open("date.txt") as f:
     date = f.read().strip()
-
-with open("day.txt") as f:
-    day = f.read().strip()
 
 with open("version.txt") as f:
     version = f.read().strip()
@@ -66,7 +64,7 @@ with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
 # (Temporary) Update build scripts for scikit-build-core
-remove_deprecations_value = "ON" if day == "Monday" else "OFF"
+remove_deprecations_value = "ON" if datetime.today().weekday() == 0 else "OFF"
 
 with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
     f.write(
