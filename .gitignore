@@ -2,6 +2,7 @@
 
 # Ignore files created by run-local scripts
 date.txt
+day.txt
 version.txt
 commit.txt
 tiledb-feedstock/

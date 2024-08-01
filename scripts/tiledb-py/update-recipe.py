@@ -2,7 +2,7 @@
 #
 # Parses recipe with ruamel.yaml
 #
-# Reads values for version, date, and commit from plain-text files
+# Reads values for version, date, day, and commit from plain-text files
 
 recipe = "tiledb-py-feedstock/recipe/meta.yaml"
 
@@ -14,6 +14,9 @@ from yaml.scanner import ScannerError
 
 with open("date.txt") as f:
     date = f.read().strip()
+
+with open("day.txt") as f:
+    day = f.read().strip()
 
 with open("version.txt") as f:
     version = f.read().strip()
@@ -63,18 +66,20 @@ with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
 # (Temporary) Update build scripts for scikit-build-core
+remove_deprecations_value = "ON" if day == "Monday" else "OFF"
+
 with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
     f.write(
-        "TILEDB_PATH=${PREFIX} "
+        f"TILEDB_PATH=${{PREFIX}} "
         "${PYTHON} -m pip install "
-        "-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS=OFF "
+        f"-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS={remove_deprecations_value} "
         "--no-build-isolation --no-deps --ignore-installed -v ."
     )
 
 with open("tiledb-py-feedstock/recipe/bld.bat", "w") as f:
     f.write(
-        "set \"TILEDB_PATH=%LIBRARY_PREFIX%\" "
+        f"set \"TILEDB_PATH=%LIBRARY_PREFIX%\" "
         "&& %PYTHON% -m pip install "
-        "-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS=OFF "
+        f"-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS={remove_deprecations_value} "
         "--no-build-isolation --no-deps --ignore-installed -v ."
     )
