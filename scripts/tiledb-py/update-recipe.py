@@ -64,6 +64,7 @@ with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
 # (Temporary) Update build scripts for scikit-build-core
+# Run with deprecation warnings on Mondays for forward-looking alerts.
 remove_deprecations_value = "ON" if datetime.today().weekday() == 0 else "OFF"
 
 with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
