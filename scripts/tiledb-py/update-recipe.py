@@ -25,6 +25,10 @@ with open("commit.txt") as f:
 # Parse and update YAML recipe ------------------------------------------------
 
 yaml = YAML(typ="jinja2")
+# Note: allow_duplicate_keys suppresses error due to duplicate keys, but it does
+# not preserve them. It only keeps the first instance of the field. This is a
+# problem whenever we use jinja2 preprocessing selectors to provide more than
+# one instance of field.
 yaml.allow_duplicate_keys = True
 yaml.indent(sequence=4, offset=2)
 yaml.preserve_quotes = True
@@ -55,18 +59,18 @@ for i in range(len(updated["requirements"]["host"])):
     if updated["requirements"]["host"][i].startswith("tiledb"):
         updated["requirements"]["host"][i] = "tiledb *.%s" % (date)
 
-# (Temporary) Add requirements for scikit-build-core
-updated["requirements"]["build"].append("make")
-updated["requirements"]["build"].append("cmake")
-updated["requirements"]["host"].append("scikit-build-core")
+# Remove `script` field in meta.yaml. It is duplicated for "not win" and "win",
+# and the latter gets deleted during the round-trip of importing and exporting
+# the YAML. For now write to build scripts below
+del updated["build"]["script"]
 
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
-# (Temporary) Update build scripts for scikit-build-core
 # Run with deprecation warnings on Mondays for forward-looking alerts.
 remove_deprecations_value = "ON" if datetime.today().weekday() == 0 else "OFF"
 
+# Create OS-specific build scripts
 with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
     f.write(
         f"TILEDB_PATH=${{PREFIX}} "
