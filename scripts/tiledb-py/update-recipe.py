@@ -59,11 +59,6 @@ for i in range(len(updated["requirements"]["host"])):
     if updated["requirements"]["host"][i].startswith("tiledb"):
         updated["requirements"]["host"][i] = "tiledb *.%s" % (date)
 
-# Remove `script` field in meta.yaml. It is duplicated for "not win" and "win",
-# and the latter gets deleted during the round-trip of importing and exporting
-# the YAML. For now write to build scripts below
-del updated["build"]["script"]
-
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
