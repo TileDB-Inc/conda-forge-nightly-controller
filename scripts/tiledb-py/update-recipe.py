@@ -5,6 +5,7 @@
 # Reads values for version, date, and commit from plain-text files
 
 recipe = "tiledb-py-feedstock/recipe/meta.yaml"
+conda_build_config = "tiledb-py-feedstock/recipe/conda_build_config.yaml"
 
 from ruamel.yaml import YAML
 from yaml.constructor import ConstructorError
@@ -81,3 +82,21 @@ with open("tiledb-py-feedstock/recipe/bld.bat", "w") as f:
         f"-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS={remove_deprecations_value} "
         "--no-build-isolation --no-deps --ignore-installed -v ."
     )
+
+# Update conda build config ---------------------------------------------------
+
+with open(conda_build_config) as f:
+    config = yaml.load(f)
+
+# Limit CI and storage requirements by only building the oldest and newest
+# Python versions supported by conda-forge. Will need to be occasionally updated
+# as old Python versions are dropped and new ones are added
+#
+# https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/main/recipe/conda_build_config.yaml
+
+config["python"] = ["3.8.* *_cpython", "3.12.* *_cpython"]
+config["python_impl"] = ["cpython", "cpython"]
+config["numpy"] = [1.22, 1.26]
+
+with open(conda_build_config, "w") as f:
+    yaml.dump(config, f)
