@@ -23,9 +23,5 @@ sed -i \
   s/"  number: [0-9]\+"/"  number: 0"/ \
   tiledb-feedstock/recipe/meta.yaml
 
-# (temporary) Remove lz4-fix.patch
-git -C tiledb-feedstock/ rm recipe/lz4-fix.patch
-sed -i /lz4-fix.patch/d tiledb-feedstock/recipe/meta.yaml
-
 # Print differences
 git -C tiledb-feedstock/ --no-pager diff recipe/
