@@ -7,6 +7,7 @@
 recipe = "tiledb-py-feedstock/recipe/meta.yaml"
 conda_build_config = "tiledb-py-feedstock/recipe/conda_build_config.yaml"
 
+import os
 from ruamel.yaml import YAML
 from yaml.constructor import ConstructorError
 from yaml.scanner import ScannerError
@@ -77,7 +78,7 @@ with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
 
 with open("tiledb-py-feedstock/recipe/bld.bat", "w") as f:
     f.write(
-        f"set \"TILEDB_PATH=%LIBRARY_PREFIX%\" "
+        f'set "TILEDB_PATH=%LIBRARY_PREFIX%" '
         "&& %PYTHON% -m pip install "
         f"-Cskbuild.cmake.define.TILEDB_REMOVE_DEPRECATIONS={remove_deprecations_value} "
         "--no-build-isolation --no-deps --ignore-installed -v ."
@@ -100,3 +101,9 @@ config["numpy"] = ["2.0", "2.0"]
 
 with open(conda_build_config, "w") as f:
     yaml.dump(config, f)
+
+# Have to remove numpy2 migration file to rerender with subset of Python
+# variants
+numpy2_migration = "tiledb-py-feedstock/.ci_support/migrations/numpy2.yaml"
+if os.path.isfile(numpy2_migration):
+    os.remove(numpy2_migration)
