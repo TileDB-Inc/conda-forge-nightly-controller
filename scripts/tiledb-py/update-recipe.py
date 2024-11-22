@@ -64,7 +64,8 @@ for i in range(len(updated["requirements"]["host"])):
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
-remove_deprecations_value = "ON"
+# Run without deprecation warnings
+remove_deprecations_value = "OFF"
 
 # Create OS-specific build scripts
 with open("tiledb-py-feedstock/recipe/build.sh", "w") as f:
