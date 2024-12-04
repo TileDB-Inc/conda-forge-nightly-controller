@@ -95,18 +95,15 @@ with open(conda_build_config) as f:
 #
 # https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/main/recipe/conda_build_config.yaml
 
-config["python"] = ["3.9.* *_cpython", "3.13.* *_cp313"]
+config["python"] = ["3.9.* *_cpython", "3.12.* *_cpython"]
 config["python_impl"] = ["cpython", "cpython"]
 config["numpy"] = ["2.0", "2.0"]
 
 with open(conda_build_config, "w") as f:
     yaml.dump(config, f)
 
-# Have to remove python313/numpy2 migration files to rerender with subset of
-# Python variants
-python313_migration = "tiledb-py-feedstock/.ci_support/migrations/python313.yaml"
-if os.path.isfile(python313_migration):
-    os.remove(python313_migration)
+# Have to remove numpy2 migration file to rerender with subset of Python
+# variants
 numpy2_migration = "tiledb-py-feedstock/.ci_support/migrations/numpy2.yaml"
 if os.path.isfile(numpy2_migration):
     os.remove(numpy2_migration)
