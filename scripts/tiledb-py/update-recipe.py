@@ -95,7 +95,7 @@ with open(conda_build_config) as f:
 #
 # https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/main/recipe/conda_build_config.yaml
 
-config["python"] = ["3.9.* *_cpython", "3.13.* *_cp313"]
+config["python"] = ["3.9.* *_cpython", "3.13.* *_cpython"]
 config["python_impl"] = ["cpython", "cpython"]
 config["numpy"] = ["2.0", "2.0"]
 
