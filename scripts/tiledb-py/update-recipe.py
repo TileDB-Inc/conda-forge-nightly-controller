@@ -59,7 +59,7 @@ updated["build"]["number"] = 0
 # Pin tiledb by the date
 for i in range(len(updated["requirements"]["host"])):
     if updated["requirements"]["host"][i].startswith("tiledb"):
-        updated["requirements"]["host"][i] = "tiledb *.%s" % (date)
+        updated["requirements"]["host"][i] = "tiledb"
 
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
