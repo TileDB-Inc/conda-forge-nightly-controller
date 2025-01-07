@@ -98,6 +98,7 @@ with open(conda_build_config) as f:
 config["python"] = ["3.9.* *_cpython", "3.12.* *_cpython"]
 config["python_impl"] = ["cpython", "cpython"]
 config["numpy"] = ["2.0", "2.0"]
+config["is_python_min"] = ["true", "false"]
 
 with open(conda_build_config, "w") as f:
     yaml.dump(config, f)
