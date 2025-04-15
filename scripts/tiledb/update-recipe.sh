@@ -23,5 +23,9 @@ sed -i \
   s/"  number: [0-9]\+"/"  number: 0"/ \
   tiledb-feedstock/recipe/meta.yaml
 
+# (temporary) Remove TILEDB_HDFS
+sed -i '/TILEDB_HDFS/d' tiledb-feedstock/recipe/bld.bat
+sed -i '/TILEDB_HDFS/d' tiledb-feedstock/recipe/build.sh
+
 # Print differences
 git -C tiledb-feedstock/ --no-pager diff recipe/
