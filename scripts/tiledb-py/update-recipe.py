@@ -97,14 +97,7 @@ with open(conda_build_config) as f:
 
 config["python"] = ["3.9.* *_cpython", "3.12.* *_cpython"]
 config["python_impl"] = ["cpython", "cpython"]
-config["numpy"] = ["2.0", "2.0"]
 config["is_python_min"] = ["true", "false"]
 
 with open(conda_build_config, "w") as f:
     yaml.dump(config, f)
-
-# Have to remove numpy2 migration file to rerender with subset of Python
-# variants
-numpy2_migration = "tiledb-py-feedstock/.ci_support/migrations/numpy2.yaml"
-if os.path.isfile(numpy2_migration):
-    os.remove(numpy2_migration)
