@@ -61,6 +61,14 @@ for i in range(len(updated["requirements"]["host"])):
     if updated["requirements"]["host"][i].startswith("tiledb"):
         updated["requirements"]["host"][i] = "tiledb 2.*"
 
+# (temporary) pin pybind11 <3
+for i in range(len(updated["requirements"]["host"])):
+    if updated["requirements"]["host"][i].startswith("pybind11"):
+        updated["requirements"]["host"][i] = "pybind11 <3"
+for i in range(len(updated["requirements"]["build"])):
+    if updated["requirements"]["build"][i].startswith("pybind11"):
+        updated["requirements"]["build"][i] = "pybind11 <3"
+
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
