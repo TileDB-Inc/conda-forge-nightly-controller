@@ -103,8 +103,9 @@ with open(conda_build_config) as f:
 #
 # https://github.com/conda-forge/conda-forge-pinning-feedstock/blob/main/recipe/conda_build_config.yaml
 
-config["python"] = ["3.9.* *_cpython", "3.12.* *_cpython"]
-config["is_python_min"] = ["true", "false"]
+# (temporary) Skip this step to build all Python versions for debugging
+# config["python"] = ["3.9.* *_cpython", "3.12.* *_cpython"]
+# config["is_python_min"] = ["true", "false"]
 
 with open(conda_build_config, "w") as f:
     yaml.dump(config, f)
