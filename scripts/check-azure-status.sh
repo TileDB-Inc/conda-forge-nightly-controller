@@ -53,7 +53,7 @@ if [[ -z "$existing" ]]
 then
   echo "Opening new issue"
   gh issue create \
-    --assignee "shaunrd0,KiterLuc,ihnorton,jdblischak,kounelisagis" \
+    --assignee "shaunrd0,ihnorton,jdblischak,kounelisagis" \
     --body "$theMessage" \
     --label "nightly-failure" \
     --title "Nightly feedstock build failed"
