@@ -23,7 +23,7 @@ on:
         default: 0
 defaults:
   run:
-    shell: bash -l {0}
+    shell: bash -leo pipefail {0}
 env:
   TILEDB_CI_ACCOUNT: ${{ github.event.inputs.TILEDB_CI_ACCOUNT || 'tiledb' }}
   TILEDB_CI_DAYS: ${{ github.event.inputs.TILEDB_CI_DAYS || 7 }}

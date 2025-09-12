@@ -51,17 +51,17 @@ jobs:
             wheel
           cache-environment: true
       - name: Update conda-smithy
-        shell: bash -l {0}
+        shell: bash -leo pipefail {0}
         run: micromamba update --yes conda-smithy
       - name: Obtain version
-        shell: bash -l {0}
+        shell: bash -leo pipefail {0}
         run: bash ci/scripts/tiledb-py/obtain-version.sh
       - name: Obtain commit
         run: bash ci/scripts/obtain-commit.sh TileDB-Py
       - name: Pull from upstream feedstock
         run: bash ci/scripts/pull-upstream-feedstock.sh tiledb-py-feedstock
       - name: Update recipe
-        shell: bash -l {0}
+        shell: bash -leo pipefail {0}
         run: python ci/scripts/tiledb-py/update-recipe.py
       - name: Print recipe diff
         run: git -C tiledb-py-feedstock/ --no-pager diff recipe/
@@ -70,7 +70,7 @@ jobs:
       - name: Add and commit
         run: bash ci/scripts/add-and-commit.sh tiledb-py-feedstock
       - name: Rerender feedstock
-        shell: bash -l {0}
+        shell: bash -leo pipefail {0}
         run: bash ci/scripts/rerender-feedstock.sh tiledb-py-feedstock
       - name: Push update to GitHub
         if: github.ref == 'refs/heads/main' && github.repository_owner == 'TileDB-Inc' && github.event_name != 'pull_request'
