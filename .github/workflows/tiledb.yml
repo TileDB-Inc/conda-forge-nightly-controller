@@ -3,6 +3,9 @@ on:
   schedule:
      - cron: "0 1 * * *" # Every night at 1 AM UTC (8 PM EST; 9 PM EDT)
   workflow_dispatch:
+defaults:
+  run:
+    shell: bash -leo pipefail {0}
 jobs:
   tiledb:
     runs-on: ubuntu-latest
@@ -49,10 +52,8 @@ jobs:
           create-args: conda-smithy jsonschema
           cache-environment: true
       - name: Update conda-smithy
-        shell: bash -leo pipefail {0}
         run: micromamba update --yes conda-smithy
       - name: Rerender feedstock
-        shell: bash -leo pipefail {0}
         run: bash ci/scripts/rerender-feedstock.sh tiledb-feedstock
       - name: Push update to GitHub
         if: github.ref == 'refs/heads/main' && github.repository_owner == 'TileDB-Inc' && github.event_name != 'pull_request'
