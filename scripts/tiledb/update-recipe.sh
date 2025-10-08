@@ -23,16 +23,5 @@ sed -i \
   s/"  number: [0-9]\+"/"  number: 0"/ \
   tiledb-feedstock/recipe/meta.yaml
 
-# (temporary) Add azure-storage-files-datalake-cpp
-mkdir -p tiledb-feedstock/recipe/tiledb-patches/system-ports/azure-storage-files-datalake-cpp
-echo "set(VCPKG_POLICY_EMPTY_PACKAGE enabled)" \
-  > tiledb-feedstock/recipe/tiledb-patches/system-ports/azure-storage-files-datalake-cpp/portfile.cmake
-echo '{ "name": "azure-storage-files-datalake-cpp", "version-string": "system" }' \
-  > tiledb-feedstock/recipe/tiledb-patches/system-ports/azure-storage-files-datalake-cpp/vcpkg.json
-
-sed -i \
-  s/host:/'host:\n    - azure-storage-files-datalake-cpp'/ \
-  tiledb-feedstock/recipe/meta.yaml
-
 # Print differences
 git -C tiledb-feedstock/ --no-pager diff recipe/
