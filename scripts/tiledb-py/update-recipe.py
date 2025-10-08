@@ -101,3 +101,10 @@ with open(conda_build_config) as f:
 
 with open(conda_build_config, "w") as f:
     yaml.dump(config, f)
+
+# (temporary) Delete py314 migration file. It added `channel_sources` to
+# `zip_keys`, which is inconvenient in our nightly setup, and we don't need to
+# test py314 nightly anyways
+python314_migration = "tiledb-py-feedstock/.ci_support/migrations/python314.yaml"
+if os.path.isfile(python314_migration):
+    os.remove(python314_migration)
