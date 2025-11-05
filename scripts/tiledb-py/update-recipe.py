@@ -61,6 +61,10 @@ for i in range(len(updated["requirements"]["host"])):
     if updated["requirements"]["host"][i].startswith("tiledb"):
         updated["requirements"]["host"][i] = "tiledb 2.*"
 
+# (temporary) Remove py314 patch that has been merged upstream but not yet
+# released
+del updated["source"]["patches"]
+
 with open(recipe, "w") as f:
     yaml.dump(updated, f)
 
