@@ -1,7 +1,9 @@
 name: Delete old nightlies
 on:
   schedule:
-     - cron: "36 0 * * *" # Every day
+    # Every Wednesday at 12:36 AM UTC (Tuesday at 7:36 PM EST; 8:36 PM EDT)
+    # https://crontab.guru/#36_0_*_*_3
+     - cron: "36 0 * * 3"
   workflow_dispatch:
     inputs:
       TILEDB_CI_ACCOUNT:

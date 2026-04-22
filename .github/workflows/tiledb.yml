@@ -1,7 +1,9 @@
 name: tiledb
 on:
   schedule:
-     - cron: "0 1 * * *" # Every night at 1 AM UTC (8 PM EST; 9 PM EDT)
+     # Every Monday at 1 AM UTC (Sunday at 8 PM EST; 9 PM EDT)
+     # https://crontab.guru/#0_1_*_*_1
+     - cron: "0 1 * * 1"
   workflow_dispatch:
 defaults:
   run:
